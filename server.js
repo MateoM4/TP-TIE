@@ -43,9 +43,13 @@ const equipos = [
   { num: 30, id: "135179", nombre: "Vélez Sarsfield" }
 ];
 
-
+// 🔥 ENDPOINT: OBTENER TODOS LOS EQUIPOS
+app.get("/api/equipos", (req, res) => {
+  res.json(equipos);
+});
 // endpoint
 app.get("/api/equipo/:id", async (req, res) => {
+    
   const { id } = req.params;
 
   try {
@@ -54,7 +58,6 @@ app.get("/api/equipo/:id", async (req, res) => {
     const data = await response.json();
 
     const partido = data.results[0];
-
     const golesLocal = parseInt(partido.intHomeScore);
     const golesVisitante = parseInt(partido.intAwayScore);
     const idLocal = partido.idHomeTeam;
