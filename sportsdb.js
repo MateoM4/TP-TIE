@@ -1,3 +1,5 @@
+require('dotenv').config();
+const { getRecommendations } = require("./spotify");
 const readline = require('readline').createInterface({
     input: process.stdin,
     output: process.stdout
@@ -99,6 +101,21 @@ readline.question('Ingresa el número de tu equipo (1 - 30): ', async (inputNum)
         console.log(`🔥 RESULTADO: Tu equipo ${resultadoFinal}`);
         console.log(`=========================================\n`);
 
+        // 6. Obtenemos recomendaciones de Spotify según el resultado
+        const playlists = await getRecommendations(resultadoFinal);
+        if (playlists.length === 0) {
+            console.log("⚠️  Sin recomendaciones musicales disponibles.");
+        } else {
+            console.log("🎶 Playlists recomendadas para este momento:");
+            console.log("------------------------------------------");
+        playlists.forEach((p, i) => {
+            if (!p) return; // Spotify a veces devuelve nulls en la lista
+            console.log(`  ${i + 1}. ${p.name}`);
+            console.log(`     👤 ${p.owner?.display_name}`);
+            console.log(`     🔗 ${p.external_urls?.spotify}`);
+        });
+            console.log("------------------------------------------\n");
+    }
     } catch (error) {
         console.log("❌ Hubo un error al conectarse con la API:", error);
     }
