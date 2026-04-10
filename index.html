@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Fútbol & Música</title>
+
+  <style>
+    body {
+      font-family: Arial;
+      background: #0f172a;
+      color: white;
+      text-align: center;
+      padding: 40px;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: #1e293b;
+      padding: 30px;
+      border-radius: 12px;
+    }
+
+    select, button {
+      padding: 10px;
+      margin: 10px;
+      border-radius: 6px;
+      border: none;
+    }
+
+    button {
+      background: #22c55e;
+      color: white;
+      cursor: pointer;
+    }
+
+    .resultado {
+      margin-top: 20px;
+      padding: 15px;
+      background: #334155;
+      border-radius: 10px;
+    }
+
+    a {
+      color: #38bdf8;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1>⚽ Fútbol & Música 🎵</h1>
+
+  <select id="equipo">
+    <option value="">Seleccionar equipo</option>
+    <option value="135150">Aldosivi</option>
+    <option value="135151">Argentinos Juniors</option>
+    <option value="135681">Atlético Tucumán</option>
+    <option value="135154">Banfield</option>
+    <option value="137771">Barracas Central</option>
+    <option value="135155">Belgrano</option>
+    <option value="135156">Boca Juniors</option>
+    <option value="137603">Central Córdoba</option>
+    <option value="135159">Defensa y Justicia</option>
+    <option value="137782">Deportivo Riestra</option>
+    <option value="135160">Estudiantes de La Plata</option>
+    <option value="137773">Estudiantes de Río Cuarto</option>
+    <option value="135161">Gimnasia y Esgrima LP</option>
+    <option value="137778">Gimnasia y Esgrima (Mendoza)</option>
+    <option value="135163">Huracán</option>
+    <option value="135164">Independiente</option>
+    <option value="137777">Independiente Rivadavia</option>
+    <option value="137786">Instituto</option>
+    <option value="135165">Lanús</option>
+    <option value="135166">Newell's Old Boys</option>
+    <option value="137775">Platense</option>
+    <option value="135170">Racing Club</option>
+    <option value="135171">River Plate</option>
+    <option value="135172">Rosario Central</option>
+    <option value="135173">San Lorenzo</option>
+    <option value="135175">Sarmiento</option>
+    <option value="136674">Talleres de Córdoba</option>
+    <option value="135177">Tigre</option>
+    <option value="135178">Unión</option>
+    <option value="135179">Vélez Sarsfield</option>
+    
+  </select>
+
+  <button onclick="buscar()">Consultar</button>
+
+  <div id="resultado" class="resultado"></div>
+</div>
+
+<script>
+async function buscar() {
+  const id = document.getElementById("equipo").value;
+
+  const res = await fetch(`http://localhost:3000/api/equipo/${id}`);
+  const data = await res.json();
+
+  let html = `
+    <h2>Resultado: ${data.resultado}</h2>
+    <p>${data.partido.strEvent}</p>
+    <p>${data.partido.intHomeScore} - ${data.partido.intAwayScore}</p>
+    <h3>🎧 Playlists:</h3>
+  `;
+
+  data.playlists.forEach(p => {
+    if (!p) return;
+    html += `
+      <p>
+        <a href="${p.external_urls.spotify}" target="_blank">
+          ${p.name}
+        </a>
+      </p>
+    `;
+  });
+
+  document.getElementById("resultado").innerHTML = html;
+}
+</script>
+
+</body>
+</html>

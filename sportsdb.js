@@ -6,7 +6,7 @@ const readline = require('readline').createInterface({
 });
 
 // 1. Mapeo de los 30 equipos extraídos de tu JSON
-const equipos = [
+export const equipos = [
     { num: 1, id: "135150", nombre: "Aldosivi" },
     { num: 2, id: "135151", nombre: "Argentinos Juniors" },
     { num: 3, id: "135681", nombre: "Atlético Tucumán" },
