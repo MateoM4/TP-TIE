@@ -88,5 +88,5 @@ app.get("/api/equipo/:id", async (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Servidor corriendo`);
+  console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
