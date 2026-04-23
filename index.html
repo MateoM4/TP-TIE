@@ -511,13 +511,14 @@ async function consultar() {
 // ── PLAYLISTS DESDE TU BACKEND (Spotify 🔥)
 function renderPlaylists(playlists) {
   const pArea = document.getElementById('playlistArea');
+  const validPlaylists = (playlists || []).filter(Boolean);
 
-  if (!playlists || playlists.length === 0) {
+  if (validPlaylists.length === 0) {
     pArea.innerHTML = '<div class="status">Sin playlists disponibles</div>';
     return;
   }
 
-  pArea.innerHTML = playlists.map((p, i) => {
+  pArea.innerHTML = validPlaylists.map((p, i) => {
     if (!p) return '';
 
     return `
