@@ -3,8 +3,7 @@
 - Recomienda música en base al resultado del último partido jugado del equipo seleccionado
 ## NUESTRA API
 - localhost:3000/api/equipo/{equipo_id}
-### Ejemplo de funcionamiento de la api
-### Ejemplo de Respuesta
+### Ejemplo de Respuesta de nuestra api
 
 Al hacer una petición a `localhost:3000/api/equipo/135179` (Vélez Sarsfield), la API devuelve un JSON estructurado de la siguiente manera:
 
