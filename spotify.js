@@ -35,10 +35,10 @@ async function getRecommendations(resultado) {
   const queryAleatoria = opciones[Math.floor(Math.random() * opciones.length)];
   const query = encodeURIComponent(queryAleatoria);
 
-  // 3. Bajamos un poco el offset máximo a 5 para no quedarnos sin resultados
+  // 3. offset aleatorio para variar los resultados de Spotify 
   const randomOffset = Math.floor(Math.random() * 5);
 
-  // 4. URL oficial con sintaxis corregida (?q=)
+  // 4. llamamos a la API de Spotify con la query y el offset aleatorio
   const url = `https://api.spotify.com/v1/search?q=$?q=${query}&type=playlist&market=AR&limit=5&offset=${randomOffset}`;
 
   const res = await fetch(url, {
@@ -50,20 +50,6 @@ async function getRecommendations(resultado) {
   
   // Limpiamos los nulls
   const playlistsLimpias = (data.playlists?.items ?? []).filter(Boolean);
-
-  // 👀 AQUÍ ESTÁN LOS CONSOLE.LOG MÁGICOS
-  console.log("\n=========================================");
-  console.log(`🎧 [DEBUG SPOTIFY]`);
-  console.log(`🔍 Palabra buscada: "${queryAleatoria}"`);
-  console.log(`🎲 Salto (offset) aplicado: ${randomOffset}`);
-  console.log(`📦 Cantidad devuelta: ${playlistsLimpias.length} playlists`);
-  console.log("-----------------------------------------");
-  
-  // Imprimimos los nombres de lo que encontró para que lo veas en la terminal
-  playlistsLimpias.forEach((pl, index) => {
-      console.log(`   ${index + 1}. ${pl.name}`);
-  });
-  console.log("=========================================\n");
 
   return playlistsLimpias;
 }
