@@ -43,16 +43,18 @@ const equipos = [
   { num: 30, id: "135179", nombre: "Vélez Sarsfield" }
 ];
 
-// 🔥 ENDPOINT: OBTENER TODOS LOS EQUIPOS
+//Llamada de api a nuestro backend para obtener la lista de equipos
 app.get("/api/equipos", (req, res) => {
   res.json(equipos);
 });
-// endpoint
+//API QUE CREAMOS PARA OBTENER EL RESULTADO DEL ULTIMO PARTIDO Y LAS PLAYLISTS DE SPOTIFY
+//corre en localhost:3000/api/equipo/:id (ejemplo: localhost:3000/api/equipo/135150)
 app.get("/api/equipo/:id", async (req, res) => {
     
   const { id } = req.params;
 
   try {
+    //nuestra api llama a la api de sportsdb para obtener el resultado del ultimo partido del equipo seleccionado
     const url = `https://www.thesportsdb.com/api/v1/json/3/eventslast.php?id=${id}`;
     const response = await fetch(url);
     const data = await response.json();
@@ -73,7 +75,7 @@ app.get("/api/equipo/:id", async (req, res) => {
       else if (golesVisitante < golesLocal) resultado = "PERDIO";
       else resultado = "EMPATO";
     }
-
+   //luego, con el resultado del partido, llamamos a la función getRecommendations para obtener las playlists recomendadas con la api de Spotify
     const playlists = await getRecommendations(resultado);
 
     res.json({
