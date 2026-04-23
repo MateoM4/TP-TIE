@@ -42,8 +42,9 @@ Al hacer una petición a `localhost:3000/api/equipo/135179` (Vélez Sarsfield), 
 - _**https://developer.spotify.com/**_
 
 ## Pasos para abrir la Api 
-1. Correr el  servidor  con node server.js donde levanto los nombres de los equipo con sus atributos en un archivo json
-2. Abrir el archivo de index.html para iteracturar con la Api
+1. Crear archivo .env con las keys necesarias
+2. Correr el  servidor  con node server.js donde levanto los nombres de los equipo con sus atributos en un archivo json
+3. Abrir el archivo de index.html para iteracturar con la Api
 
 # Consideraciones
 - Al usar la versión gratuita de la api de sportsdb.com puede ocurrir que los partidos estén desactualizados.
